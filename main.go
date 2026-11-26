@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "io"
 	"encoding/csv"
 	"fmt"
 	"log"
@@ -83,7 +82,26 @@ func parseCSV(filePath string) []student {
 }
 
 func calculateGrade(students []student) []studentStat {
-	return nil
+	var s []studentStat
+	for _, val := range students {
+		totalScore := float32(val.test1Score + val.test2Score + val.test3Score + val.test4Score) / 4
+		var g string
+		if totalScore >= 70 {
+			g = string(A)
+		}else if totalScore >= 50 {
+			g = string(B)
+		}else if totalScore >= 35 {
+			g = string(C)
+ 		}else {
+			g = string(F)
+		}
+		s = append(s, studentStat{
+			student: val,
+			finalScore: totalScore,
+			grade: Grade(g),
+		})		
+	}
+	return s
 }
 
 func findOverallTopper(gradedStudents []studentStat) studentStat {
@@ -95,5 +113,6 @@ func findTopperPerUniversity(gs []studentStat) map[string]studentStat {
 }
 
 func main() {
-	fmt.Println(parseCSV("./grades.csv"))
+	score := float32(4 + 6 + 7) / 4
+	fmt.Println(score)
 }
