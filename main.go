@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/csv"
-	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -105,21 +104,23 @@ func calculateGrade(students []student) []studentStat {
 }
 
 func findOverallTopper(gradedStudents []studentStat) studentStat {
-	highest := gradedStudents[0]
+	topper := gradedStudents[0]
 	for _, val := range gradedStudents[1:] {
-		if val.finalScore > highest.finalScore {
-			highest = val
+		if val.finalScore > topper.finalScore {
+			topper = val
 		}
 	}
-	return highest
+	return topper
 }
 
 func findTopperPerUniversity(gs []studentStat) map[string]studentStat {
-	
-	return nil
-}
+	uniTopper := make(map[string]studentStat)
+	for _, val := range gs {
+		d, _ := uniTopper[val.university]
 
-func main() {
-	score := float32(4 + 6 + 7) / 4
-	fmt.Println(score)
+		if val.finalScore > d.finalScore {
+			uniTopper[val.university] = val
+		}
+	}
+	return uniTopper
 }
