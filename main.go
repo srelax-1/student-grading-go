@@ -105,10 +105,17 @@ func calculateGrade(students []student) []studentStat {
 }
 
 func findOverallTopper(gradedStudents []studentStat) studentStat {
-	return studentStat{}
+	highest := gradedStudents[0]
+	for _, val := range gradedStudents[1:] {
+		if val.finalScore > highest.finalScore {
+			highest = val
+		}
+	}
+	return highest
 }
 
 func findTopperPerUniversity(gs []studentStat) map[string]studentStat {
+	
 	return nil
 }
 
